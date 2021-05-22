@@ -4,12 +4,6 @@
 
 using namespace std;
 
-#include <stdio.h>
-#include <iostream>
-#include <string>
-
-using namespace std;
-
 class Circle{
     int radius;
 public:
