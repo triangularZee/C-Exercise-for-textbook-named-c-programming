@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <stdio.h> // 전처리가 중요. 이 문제에서는 toLower()
 #include <iostream>
 #include <string>
 #include <vector>
