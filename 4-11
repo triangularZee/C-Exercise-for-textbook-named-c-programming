@@ -1,0 +1,69 @@
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <sstream>
+#include <ctime>
+
+using namespace std;
+
+
+
+class Player {
+    int number[3];
+    int Judgement = 0;
+public:
+    void getNumber();
+    void set() { Judgement = 0; }
+    int ret() { return Judgement; }
+};
+
+void Player::getNumber(){
+    int num = -1;
+    cout << '\t' << '\t';
+    for(int i=0; i<3; i++) {
+        number[i] = rand() % 3;
+        if (number[i] == num){
+            Judgement++;
+        }
+        num = number[i];
+        cout<< number[i] << '\t';
+    }
+}
+
+class GamlingGame {
+    Player p[2];
+    string name[2];
+public:
+    void play();
+};
+
+void GamlingGame::play(){
+    cout << "***** " << "갬블링 게임을 시작합니다. " << "*****" << endl;
+    cout << "첫번째 선수 이름 >>";
+    getline(cin, name[0]);
+    cout << "두번째 선수 이름 >>";
+    getline(cin, name[1]);
+    
+    int i = 0;
+    while(true){
+        int idx = i%2;
+        cout << name[idx] << "<Enter>";
+        getchar();
+        p[idx].getNumber();
+        if(p[idx].ret() == 2){
+            cout << name[idx] << "님 승리!!" << endl;
+            break;
+        }
+        else{
+            cout << "아쉽군요!" << endl;
+            p[idx].set();
+        }
+        i++;
+    }
+}
+
+int main(){
+    GamlingGame gg;
+    gg.play();
+}
