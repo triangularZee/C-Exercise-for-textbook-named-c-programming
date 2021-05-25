@@ -15,7 +15,7 @@ class Player {
 public:
     void getNumber();
     void set() { Judgement = 0; }
-    int ret() { return Judgement; }
+    int get() { return Judgement; }
 };
 
 void Player::getNumber(){
@@ -51,7 +51,7 @@ void GamlingGame::play(){
         cout << name[idx] << "<Enter>";
         getchar();
         p[idx].getNumber();
-        if(p[idx].ret() == 2){
+        if(p[idx].get() == 2){
             cout << name[idx] << "님 승리!!" << endl;
             break;
         }
