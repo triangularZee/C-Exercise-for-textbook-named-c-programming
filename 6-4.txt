@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <sstream>
+#include <ctime>
+#include <limits.h>
+
+using namespace std;
+
+class MyVector{
+    int *mem;
+    int size;
+public:
+    MyVector(int n = 100, int val = 0) {
+        size = n;
+        this->mem = new int[size];
+        for(int i=0; i<size; i++) mem[i] = val;
+    }
+    ~MyVector() { delete[] mem;}
+    void get(){ for(int i=0; i<size; i++) cout << mem[i] << endl;}
+};
+
+int main(){
+    MyVector mv;
+    MyVector mv1(2,3);
+    mv.get();
+    mv1.get();
+}
+

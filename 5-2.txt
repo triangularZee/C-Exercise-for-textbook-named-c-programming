@@ -1,0 +1,29 @@
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <sstream>
+#include <ctime>
+
+using namespace std;
+
+bool bigger(int a, int b, int& big){
+    int A = a, B = b;
+    if(A>B){
+        big = A;
+        return false;
+    }
+    else if(A<B){
+        big = B;
+        return false;
+    }
+    else { return true; }
+}
+
+int main(){
+    int a = 3, b = 5;
+    int K;
+    bigger(a,b,K);
+    cout << K << endl;
+}
+

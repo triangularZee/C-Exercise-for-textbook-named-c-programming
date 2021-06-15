@@ -1,0 +1,21 @@
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <sstream>
+#include <ctime>
+#include <limits.h>
+
+using namespace std;
+
+int big(int a, int b, int c = INT_MIN){
+    return (a >= b ? a : b) >= c ? (a >= b ? a : b) : c;
+}
+
+int main(){
+    int x = big(3,5);
+    int y = big(300, 60);
+    int z = big(30, 60, 500);
+    cout << x << ' ' << y << ' ' << z << endl;
+}
+
