@@ -1,0 +1,72 @@
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <sstream>
+#include <ctime>
+#include <string.h>
+
+using namespace std;
+
+class Printer {
+    int printedCount, availableCount;
+    string name, manufacturer;
+protected:
+    Printer(string name, string manu, int num) { this->name = name; this->manufacturer = manu; this->availableCount = num; }
+    bool print(int pages) {
+        if(availableCount-pages>0) {
+            this->printedCount+=pages;
+            this->availableCount-=pages;
+            return true;}
+        else {cout << "용지 부족" << endl; return false;}
+    }
+    void show() { cout << name << " ," << manufacturer << " ," << "남은 종이 "<< availableCount << "장 ,";}
+};
+
+class InkjetPrinter : public Printer {
+    int availableInk;
+public:
+    InkjetPrinter(string name, string manu, int num, int availableink) : Printer(name, manu, num) {availableInk= availableink;}
+    void PrintInkJet(int pages) { if(print(pages)) availableInk-=pages;}
+    void get() { show(); cout << "남은 잉크 " << availableInk << endl;}
+};
+
+class LaserPrinter : public Printer {
+    int availableToner;
+public:
+    LaserPrinter(string name, string manu, int num, int availabletoner) : Printer(name, manu, num) {availableToner= availabletoner;}
+    void PrintLaser(int pages) { if(print(pages)) availableToner-=pages;}
+    void get() { show(); cout << "남은 토너 " << availableToner << endl;}
+};
+
+int main() {
+    InkjetPrinter* IP = new InkjetPrinter("Officejet V40", "HP",5,10);
+    LaserPrinter* LP = new LaserPrinter("SCX-6x45", "삼성전자",3,20); // 동적할당해서 나름 깊은 복사 느낌으로....
+    int n1, n2;
+    char a;
+
+    cout << "현재 작동중인 2 대의 프린터는 아래와 같다" << endl;
+    cout << "잉크젯 : "; IP->get();
+    cout << "레이저 : "; LP->get();
+
+    while(1) {
+        cout << endl << "프린터(1:잉크젯, 2:레이저)와 매수 입력>>";
+        cin >> n1 >> n2;
+        if( n1 == 1 )
+        {
+            IP->PrintInkJet(n2);
+            IP->get();
+            LP->get();
+        }
+        if( n1 == 2 )
+        {
+            LP->PrintLaser(n2);
+            IP->get();
+            LP->get();
+        }
+        cout << "계속 프린트 하시겠습니까(y/n)>>";
+        cin >> a;
+        if( a == 'n' ) break;
+    }
+}
+

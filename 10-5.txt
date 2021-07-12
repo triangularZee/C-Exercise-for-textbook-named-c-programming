@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <sstream>
+#include <ctime>
+#include <string.h>
+
+using namespace std;
+
+template <class T> T *concat(T a[], int sizea, T b[], int sizeb){
+    T *c = new T[sizea+sizeb];
+    int i;
+    for(i=0; i<sizea+sizeb; i++){
+        if(i<sizea) c[i] = a[i];
+        else c[i] = b[i-sizea];
+    }
+    c[i] = '\0';
+    return c;
+}
+
+int main(){
+    int a[3] = {1,2,3};
+    int b[4] = {4,5,6,7};
+    int *c = concat(a, 3, b, 4);
+    while(*c!='\0'){
+        cout << *c << ' ';
+        c++;
+    }
+}
+

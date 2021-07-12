@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <sstream>
+#include <ctime>
+#include <string.h>
+
+using namespace std;
+
+template <class T1, class T2, class T3> bool equalArrays(T1 a, T2 b, T3 c){
+    for(int i=0; i<c; i++){
+        if (a[i]!=b[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+int main(){
+    int x[] = {1, 10, 100, 5, 4};
+    int y[] = {1, 10, 100, 5 ,4};
+    if(equalArrays(x, y, 5)) cout << "같다";
+    else cout << "다르다";
+}
+

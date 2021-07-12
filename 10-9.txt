@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <sstream>
+#include <ctime>
+#include <string.h>
+
+using namespace std;
+
+int main(){
+    vector<int> iv;
+    vector<int>::iterator it;
+    int n, aver;
+    
+    while(true){
+        aver = 0;
+        cout << "정수를 입력하세요>>";
+        cin >> n;
+        if(n==0) break;
+        iv.push_back(n);
+        for(it=iv.begin(); it<iv.end(); it++){
+            cout << *it << ' ';
+            aver += *it;
+        }
+        cout << '\n' << "평균>>" << (float)aver/iv.size() << endl;
+    }
+    return 0;
+}
+

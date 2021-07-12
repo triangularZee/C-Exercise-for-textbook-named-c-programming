@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <sstream>
+#include <ctime>
+#include <string.h>
+
+using namespace std;
+
+class BaseMemory {
+    char *mem;
+protected:
+    BaseMemory(int size) { mem = new char [size];}
+    void set(int idx, char val) { mem[idx] = val; }
+    char get(int idx) { return mem[idx]; }
+};
+
+class ROM : public BaseMemory {
+public:
+    ROM(int capa, char* memory, int size) : BaseMemory(capa) {
+        for(int i=0; i<size; i++) set(i,memory[i]);
+    }
+    char read(int idx) { return get(idx); }
+};
+
+class RAM : public BaseMemory {
+public:
+    RAM(int capa) : BaseMemory(capa) {}
+    void write(int idx, char data) { set(idx, data); }
+    char read(int idx) { return get(idx); }
+};
+
+int main(){
+    char x[5]={'h','e','l','l','o'};
+    ROM biosROM(1024*10, x, 5);
+    RAM mainMemory(1024*1024);
+    
+    for(int i=0; i<5; i++) mainMemory.write(i, biosROM.read(i));
+    for(int i=0; i<5; i++) cout << mainMemory.read(i);
+}
+

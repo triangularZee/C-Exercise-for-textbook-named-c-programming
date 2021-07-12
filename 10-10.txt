@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <ctime>
+
+using namespace std;
+
+class Nation{
+    string nation;
+    string capital;
+public:
+    Nation(string str1, string str2) { nation = str1; capital = str2; }
+    bool Compare(string n) { if(n == nation) return true; else return false;}
+    string getNation() { return nation; }
+    string getCapital() { return capital; }
+};
+
+int main(){
+    vector<Nation> v;
+    v.push_back(Nation("대한민국", "서울"));
+    v.push_back(Nation("중국", "베이징"));
+    v.push_back(Nation("북한", "평양"));
+    v.push_back(Nation("미국", "와싱턴"));
+    v.push_back(Nation("대만", "타이베이"));
+    v.push_back(Nation("캐나다", "오타와"));
+    v.push_back(Nation("스위스", "제네바"));
+    v.push_back(Nation("프랑스", "파리"));
+    v.push_back(Nation("이집트", "카이로"));
+    
+    string str;
+    int key, num;
+    cout << "***** 나라맞추기 게임*****" << '\n';
+    while(true){
+        cout << "정보 입력: 1, 퀴즈: 2, 종료: 3 >> ";
+        cin >> key;
+        cin.ignore(1,'\n');
+        switch (key) {
+            case 1:
+                num = (int)v.size();
+                cout << "현재 " << num << "개의 나라가 입력되어 있습니다" << endl;
+                cout << "나라와 수도를 입력하세요(nono이면 입력끝)" << endl;
+                while(true){
+                    cout << ++num << ">> ";
+                    getline(cin, str);
+                    int idx;
+                    if(str == "no no") break;
+                    idx = str.find(' ');
+                    v.push_back(Nation(str.substr(0,idx), str.substr(idx+1, str.size())));
+                    cout << v.back().getNation() << endl;
+                    for(int i=0; i<v.size()-1; i++){
+                        if(v.at(i).Compare(v.back().getNation())) {
+                            cout << "Alreay Exists" << '\n';
+                            num--;
+                            break;
+                        }
+                    }
+                }
+                break;
+                
+            case 2:
+                while(true){
+                    srand((unsigned int)time(NULL));
+                    int index = rand()%v.size();
+                    string str;
+                    cout << v.at(index).getNation() << "의 수도는?";
+                    cin.ignore(1,'\n');
+                    cin >> str;
+                    if(str == "exit") {break;}
+                    else if(v.at(index).getCapital() == str){
+                        cout<< "Correct !!" << endl;
+                    }
+                    else cout << "NO !!" << endl;
+                    }
+                break;
+            case 3:
+                return 0;
+        }
+    }
+}
+

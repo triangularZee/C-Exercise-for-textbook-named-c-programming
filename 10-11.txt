@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <ctime>
+
+using namespace std;
+
+class Book{
+    string BookName;
+    string Writer;
+    int year;
+public:
+    Book(string BN, string W, int Y) { BookName = BN; Writer = W; year = Y; }
+    string getBookName() { return BookName; }
+    string getWriter()  { return Writer; }
+    int getYear()   { return year; }
+};
+
+int main(){
+    vector<Book> v;
+    vector<Book>::iterator it;
+    int n, count=0;
+    string str1, str2;
+    cout << "입고할 책을 입력하세요. 년도에 -1을 입력하면 입고를 종료합니다." << '\n';
+    while(true){
+        cout << "년도>>";
+        cin >> n;
+        cin.ignore(1,'\n');
+        if(n==-1) break;
+        count++;
+        cout << "책이름>>";
+        getline(cin,str1);
+        cout << "저자>>";
+        getline(cin,str2);
+        v.push_back(Book(str1, str2, n));
+    }
+    cout << "총 입고된 책은 " << count << "권입니다." << endl;
+    
+    cout << "검색하고자 하는 저자 이름을 입력하세요>>";
+    getline(cin, str1);
+    for(it = v.begin(); it < v.end(); it++){
+        if((*it).getWriter()==str1) {
+            cout << (*it).getYear() << ' ' << (*it).getBookName() << ' ' << (*it).getWriter() << '\n';
+        }
+    }
+    cout << "검색하고자 하는 년도를 입력하세요>>";
+    cin >> count;
+    for(it = v.begin(); it < v.end(); it++){
+        if((*it).getYear()==count) {
+            cout << (*it).getYear() << ' ' << (*it).getBookName() << ' ' << (*it).getWriter() << '\n';
+        }
+    }
+    return 0;
+}
+

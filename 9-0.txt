@@ -1,0 +1,149 @@
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <sstream>
+#include <ctime>
+#include <string.h>
+
+using namespace std;
+class Game {
+    
+public:
+    Game() {
+        Human
+    }
+};
+
+class GameObject {
+protected:
+    int distance;
+    int x, y;
+public:
+    GameObject(int startX, int startY, int distance) {
+        this->x = startX; this->y = startY;
+        this->distance = distance;
+    }
+    virtual ~GameObject() {};
+    static void seed() { srand((unsigned)time(0)); }
+
+    virtual void move() = 0;
+    virtual char getShape() = 0;
+    
+    int getX() { return x; }
+    int getY() { return y; }
+    bool isCollide(GameObject *p){
+        if(this->x == p->getX() && this->y == p->getY())
+            return true;
+        else
+            return false;
+    }
+};
+
+class Human : public GameObject {
+    char key;
+public:
+    void move() {
+        GameObject::move();
+        cin >> key;
+        switch (key) {
+            case 'a':
+                this->x -= -1;
+                break;
+            case 's':
+                this->y -= -1;
+                break;
+            case 'd':
+                this->y += 1;
+                break;
+            case 'f':
+                this->x += 1;
+                break;
+            default:
+                cout << "Error, Invalid access." << endl;
+                break;
+        }
+    }
+    char getShape() {
+        return 'H';
+    }
+};
+
+class Monster : public GameObject {
+    int key;
+public:
+    void move() {
+        GameObject::move();
+        GameObject::seed();
+        key = rand()%4;
+        switch (key) {
+        case 0:
+            this->x -= -2;
+            break;
+        case 1:
+            this->y -= -2;
+            break;
+        case 2:
+            this->y += 2;
+            break;
+        case 3:
+            this->x += 2;
+            break;
+        default:
+            cout << "Error, Invalid access." << endl;
+            break;
+        }
+    }
+    
+    char getShape() { return 'M'; }
+};
+
+class Food : public GameObject{
+    int key;
+public:
+    void move() {
+        GameObject::move();
+        GameObject::seed();
+        key = rand()%5;
+        switch (key) {
+               case 0:
+                key = key%4;
+                    switch (key) {
+                        case '0':
+                            this->x -= -1;
+                            break;
+                        case '1':
+                            this->y -= -1;
+                            break;
+                        case '2':
+                            this->y += 1;
+                            break;
+                        case '3':
+                            this->x += 1;
+                            break;
+               case 1:
+                   key = key%4;
+                   switch (key) {
+                       case '0':
+                           this->x -= -1;
+                           break;
+                       case '1':
+                           this->y -= -1;
+                           break;
+                       case '2':
+                           this->y += 1;
+                           break;
+                       case '3':
+                           this->x += 1;
+                           break;
+                   }
+               default:
+                   break;
+               }
+        }
+    }
+    
+    char getShape() { return '@'; }
+};
+
+

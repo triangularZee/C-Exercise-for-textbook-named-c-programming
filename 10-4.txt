@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <sstream>
+#include <ctime>
+#include <string.h>
+
+using namespace std;
+
+template <class T> bool search(int a, T arr, int b){
+    for(int i=0; i<b; i++){
+        if(arr[i]==a){
+            return true;
+        }
+    }
+    return false;
+}
+
+int main(){
+    int x[] = {1, 10, 100, 5, 4};
+    if(search(100, x, 5)) cout << "Included";
+    else cout << "not";
+}
+
